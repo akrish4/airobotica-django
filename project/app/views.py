@@ -1,7 +1,8 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from .models import Contact
 from django.contrib.auth import authenticate,login,logout
+from django.contrib import messages
 # Create your views here.
 def index(request):
     return render(request,'index.html')
@@ -14,7 +15,8 @@ def contact(request):
         desc=request.POST.get('desc')
         myusercontact=Contact(name=name,email=email,phone=phone,desc=desc)
         myusercontact.save()
-        return HttpResponse("Response has been recorded")
+        messages.warning(request,"Your Response has been recorded")
+        return redirect('/')
 
     return render(request,'contact.html')
 
@@ -44,8 +46,23 @@ def handleLogin(request):
         user=authenticate(username=username,password=pass1)
         if user is not None:
             login(request,user)
-            return HttpResponse("login successful")
+            messages.info(request,"Login SuccessFull")
+            return redirect("/")
         else:
-            return HttpResponse("invalid credentials")    
+            messages.error(request,"Invalid Credentials")
+            return redirect("/login")    
 
     return render(request,'login.html')    
+
+def friends(request):
+    return render(request,'friends.html')  
+
+
+
+def handleBlog(request):
+    return render(request,'handleblog.html') 
+
+
+
+def about(request):
+    return render(request,'about.html')      
