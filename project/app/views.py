@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
-from .models import Contact
+from .models import Contact,BlogPost
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.conf import settings
@@ -87,7 +87,13 @@ def handleLogin(request):
     return render(request,'login.html')    
 
 def friends(request):
-    return render(request,'friends.html')  
+    if not request.user.is_authenticated:
+        messages.error(request,"please login and try again")
+        return redirect('/login')
+
+    allPosts=BlogPost.objects.all()
+    context = {'allPosts':allPosts}
+    return render(request,'friends.html', context)  
 
 
 
