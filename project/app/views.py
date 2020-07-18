@@ -30,10 +30,18 @@ def contact(request):
             return render(request,'contact.html')
 
         connection=mail.get_connection()
+
+
         connection.open()
-        email=mail.EmailMessage(name,desc,from_email,['ashikar2512@gmail.com'],connection=connection)
-        connection.send_messages([email])
+        email1=mail.EmailMessage(name,f'email: {email} \n phone number: {phone} Query : {desc}',from_email,['aneesurrehman423@gmail.com'],connection=connection)
+        connection.send_messages([email1])
         connection.close()
+       
+        connection.open()
+        email2=mail.EmailMessage(f'Hello {name}','Your Response has been recorded we will get back to you soon ASAP',from_email,[email],connection=connection)
+        connection.send_messages([email2])
+        connection.close()
+
         myusercontact=Contact(name=name,email=email,phone=phone,desc=desc)
         myusercontact.save()
         messages.info(request,"Your Response has been recorded and sent to the admin")

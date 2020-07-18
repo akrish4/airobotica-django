@@ -1,3 +1,4 @@
+{% load socialaccount %}
 {% load static %}
 <!doctype html>
 <html lang="en">
@@ -8,16 +9,22 @@
     <link href={% static 'css/main1.css' %} rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Login</title>
   </head>
   <body class="text-center">
   
    <form  class="form-signin" action="/login" method="post">{% csrf_token %}
-   
+
    <img class="mb-2" src="{% static 'images/bg4.jpg' %}" width="250" height="100">
 
-   <h3><span class="badge badge-danger mb-2">Login Here </span> </h3>
+  <a href="{% provider_login_url 'google' %}" class="btn btn-sm btn-block btn-dark" style="font-size:24px">Login with 
+                              <i class="fa fa-google-plus" style="font-size:28px;color:red"></i></a>
+
+                                 <p class="text-center mt-1">OR</p>
+
+ 
    {% for message in messages %}
 
 <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">

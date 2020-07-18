@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'django.contrib.sites',  
+    'app',
+
+    'allauth',   
+    'allauth.account',  
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +88,30 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = (
+ 'django.contrib.auth.backends.ModelBackend',
+ 'allauth.account.auth_backends.AuthenticationBackend',
+ 'allauth.account.auth_backends.AuthenticationBackend', 
+ )
+
+
+SITE_ID = 2
+LOGIN_REDIRECT_URL = '/'
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -116,8 +146,8 @@ USE_L10N = True
 USE_TZ = True
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'your email id'
-EMAIL_HOST_PASSWORD ='your mail id password'
+EMAIL_HOST_USER = 'ur email id'
+EMAIL_HOST_PASSWORD ='ur password'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
