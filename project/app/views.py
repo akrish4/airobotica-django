@@ -118,3 +118,18 @@ def handlelogout(request):
     logout(request)
     messages.info(request,"Logout Succesfull")
     return redirect('/login')    
+
+
+def search(request):
+    query=request.GET['search']
+    if len(query)>80:
+        allPosts = BlogPost.objects.none()
+    else:
+        allPostsTitle=BlogPost.objects.filter(title__icontains=query)
+        allPostsContent=BlogPost.objects.filter(content__icontains=query)
+        allPosts=allPostsTitle.union(allPostsContent)
+    if allPosts.count() == 0:
+        messages.warning(request,"No Search Results")
+    params={'allPosts':allPosts,'query':query}        
+
+    return render(request,'search.html',params)    

@@ -11,5 +11,6 @@ urlpatterns = [
   path('handlelogout',views.handlelogout,name='handlelogout'),
   path('handleFriendsBlog',views.friends,name='friends'),
   path('handleBlog',views.handleBlog,name='handleBlog'),
-  path('about',views.about,name='about')
+  path('about',views.about,name='about'),
+  path('search',views.search,name='search'),
 ]
