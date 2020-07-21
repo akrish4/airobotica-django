@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
-from .models import Contact,BlogPost
+from .models import Contact,BlogPost,PersonalBlogPost
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.conf import settings
@@ -106,7 +106,9 @@ def friends(request):
 
 
 def handleBlog(request):
-    return render(request,'handleblog.html') 
+    posts=PersonalBlogPost.objects.all()
+    context={'posts':posts}
+    return render(request,'handleblog.html',context) 
 
 
 

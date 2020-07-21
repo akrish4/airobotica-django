@@ -21,5 +21,16 @@ class BlogPost(models.Model):
         return self.sno
     
 
+class PersonalBlogPost(models.Model):
+    sno = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=50)
+    content=models.TextField()
+    author = models.CharField(max_length=50)
+    img = models.ImageField(upload_to = 'friendspic',blank=True, null=True) 
+    timeStamp=models.DateTimeField(blank=True)
+
+
+    def __str__(self):
+        return self.author
 
 
